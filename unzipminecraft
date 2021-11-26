@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# extracts the jar location out of TLauncher config and unzips it to tmpfs
+
+dest="/tmp/mc"
+
+if [[ -n "$1" ]]; then
+	dest="$(realpath "$1")"
+fi
+
+rm -rf "$dest"
+
+mkdir "$dest" -p
+
+ver=$(cat ~/.tlauncher/tlauncher-2.0.properties | grep ^login.version.game | sed 's/.*=//')
+
+src="$HOME/.minecraft/versions/$ver/$ver.jar"
+
+unzip "$src" -d "$dest" > /dev/null
+
+echo -e "Unzipped $(ls --color -d --quoting-style=shell "$src") to $(ls --color -d --quoting-style=shell "$dest")"

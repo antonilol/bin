@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# arduino ide looks UGLY with java 16+
+
+PATH=/usr/lib/jvm/java-8-openjdk/jre/bin:$PATH /bin/arduino

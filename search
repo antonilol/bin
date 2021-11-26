@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "Error: no argument 'word' given"
+	echo -e "  Usage:   \033[1msearch <word> [dir] [grepArgs]\033[0m"
+	echo -e "  Example: \033[1msearch myText stuff i\033[0m"
+	echo "           search for the word 'myText' in files in the"
+	echo -e "           folder 'stuff', case \033[1mi\033[0mnsensitive"
+	exit 1
+fi
+
+dir="$2"
+
+if [ $# -lt 2 ]; then
+	dir="."
+fi
+
+tot="0"
+
+find "$dir" | while read file
+do
+	res=$(cat "$file" 2>/dev/null | grep -Pa"$3" "$1")
+	if [[ -n $res ]]; then
+		n=$(echo "$res" | wc -l)
+		tot=$(($tot+$n))
+		echo -e "\n\033[1;36m($n)\033[0;1m $file\033[0m"
+		cat "$file" 2>/dev/null | grep -nPaT"$3" --color=auto "$1"
+	fi
+done
+
+# echo -e "\n\033[1mTotal matches: \033[36m$tot\033[0m"

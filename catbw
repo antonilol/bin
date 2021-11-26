@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# cat but it prints in black and white
+
+cat "$@" | while read l
+do
+	echo -e "\033[30;48;2;255;255;255m$l\033[0m"
+done

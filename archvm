@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo "Starting the VM..."
+VBoxManage startvm "arch linux" --type headless > /dev/null 2> /dev/null
+
+echo "Waiting for SSH..."
+echo "(!) Note: Exiting the SSH connection powers off the VM"
+
+ssh localhost -p 5679
+
+echo -n "Powering off the VM... "
+VBoxManage controlvm "arch linux" poweroff --type headless > /dev/null 2> /dev/null
+echo "done"
+

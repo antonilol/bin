@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# extracts the jar location out of a minecraft fabric mod's
+# classpath (antonilol/redstone-components) and unzips it to tmpfs
+
+dest="/tmp/mc"
+
+if [[ -n "$1" ]]; then
+	dest="$(realpath "$1")"
+fi
+
+rm -rf "$dest"
+
+mkdir "$dest" -p
+
+src=$(cat ~/fabric/redstone_components/.classpath | grep -o /.*/minecraft-.*jar)
+
+unzip "$src" -d "$dest" > /dev/null
+
+echo -e "Unzipped $(ls --color -d --quoting-style=shell "$src") to $(ls --color -d --quoting-style=shell "$dest")"
+

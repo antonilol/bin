@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo pacman -R"$2" $(pacman -Qdqt"$1")
+

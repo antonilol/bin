@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# max size of thumb in pixels
+m=100
+
+# save to clipboard
+xclip -selection clipboard -t image/png -i "$1"
+
+# size of image to var (for notification)
+# dimensions
+d=$(identify -format "%wx%h" "$1")
+# filesize
+s=$(du -h "$1"|sed s/\\t.*//)
+
+# notification text (\n = return)
+t=$(echo -ne "Screenshot taken\nDimensions: $d\nSize: $s")
+
+# notification image (thumb)
+convert "$1" -resize "${m}x$m>" /tmp/thumb.png
+
+# the actual notification
+notify-send -i /tmp/thumb.png -t 3000 "$t"
+
+# move to screenshots folder
+mv "$1" ~/screenshots/ 2>/dev/null

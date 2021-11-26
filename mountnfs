@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# mount nfs (actually ftp) on my rpi to ~/nfs
+
+umount ~/nfs 2>/dev/null && echo "already mounted, remounting..."
+curlftpfs $(cat nfs_host) ~/nfs -o allow_other,uid=1000,gid=1000

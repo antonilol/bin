@@ -1,0 +1,10 @@
+#!/bin/bash
+
+pid=$(pgrep -f autoclicker1)
+
+if [ -z $pid ]; then
+	autoclicker1
+else
+	kill -9 $pid
+	xdotool mouseup 1
+fi

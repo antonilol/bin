@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Wrapper around cat to `killall catw` without killing other cat processes
+
+cat "$@"

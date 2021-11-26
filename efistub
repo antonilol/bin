@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# still experimenting with this
+
+part=$(findmnt /efi -no source)
+disk=$(lsblk -srnpo name "$part" | tail -n1)
+pnum=$(echo "$part" | grep -o [0-9]$)
+uuid=$(findmnt / -no uuid)
+
+efibootmgr --create --disk "$disk" --part "$pnum" --label "Arch Linux efistub" \
+	--loader "/EFI/vmlinuz-linux" \
+	--unicode "root=UUID=$uuid rw initrd=EFI\\amd-ucode.img,EFI\\initramfs-linux.img" --verbose

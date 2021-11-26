@@ -1,0 +1,7 @@
+#!/bin/bash
+
+list=$(sed 's/[^a-z]/\n/gi' | sed '/^$/d' | sort | uniq)
+
+echo "Generated list contains $(echo "$list" | wc -l) words" >&2
+
+echo "$list"

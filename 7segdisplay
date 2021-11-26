@@ -1,0 +1,42 @@
+#!/bin/bash
+
+dev="/dev/ttyUSB0"
+n=$(echo -ne "\x3f\x06\x5b\x4f\x66\x6d\x7d\x07\x7f\x6f")
+d=$(echo -ne "\xbf\x86\xdb\xcf\xe6\xed\xfd\x87\xff\xef")
+
+function update() {
+	dat=$(date +%H%M)
+	msg=
+	for i in {0..3}; do
+		b=${dat:$i:1}
+		if [[ $i -eq 1 ]]; then
+			v=${d:$b:1}
+		else
+			v=${n:$b:1}
+		fi
+		msg="$msg$v"
+	done
+	echo -ne "\x00$msg" > "$dev"
+}
+
+
+if [[ "$1" == "on" ]]; then
+
+	/home/antoni/bin/7segdisplay &
+
+elif [[ "$1" == "off" ]]; then
+
+	killall catw 7segdisplay
+
+else
+
+	killall catw
+	/home/antoni/bin/catw "$dev" &
+
+	while true
+	do
+		update
+		sleep 10
+	done
+
+fi

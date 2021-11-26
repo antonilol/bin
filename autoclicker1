@@ -1,0 +1,9 @@
+#!/bin/bash
+
+while true
+do
+	xdotool mousedown 1
+	sleep 0.01
+	xdotool mouseup 1
+	sleep 0.01
+done
