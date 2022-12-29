@@ -1,0 +1,1 @@
+echo . | osd_cat -A center -p middle -d 99999 -o -24
