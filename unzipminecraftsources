@@ -13,7 +13,7 @@ rm -rf "$dest"
 
 mkdir "$dest" -p
 
-src=$(cat ~/fabric/redstone_components/.classpath | grep -o /.*/minecraft-.*jar)
+src=$(cat ~/fabric/redstone_components/.classpath | grep -oE '/[^ ]+/minecraft-.[^ ]+-sources.jar')
 
 unzip "$src" -d "$dest" > /dev/null
 
