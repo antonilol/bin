@@ -1,0 +1,7 @@
+#!/bin/bash
+
+eval $(xdotool getmouselocation --shell)
+c=$(xwd -root -silent | convert xwd:- -depth 8 -crop "1x1+$X+$Y" txt:- | tr A-F a-f | grep -Eo '#[0-9a-f]{6}')
+
+convert -size 64x64 xc:$c /tmp/thumb.png
+notify-send -i /tmp/thumb.png -t 5000 "color at ($X, $Y):" $c
