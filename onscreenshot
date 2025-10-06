@@ -16,7 +16,7 @@ s=$(du -h "$1"|sed s/\\t.*//)
 t=$(echo -ne "Screenshot taken\nDimensions: $d\nSize: $s")
 
 # notification image (thumb)
-convert "$1" -resize "${m}x$m>" /tmp/thumb.png
+magick "$1" -resize "${m}x$m>" /tmp/thumb.png
 
 # the actual notification
 notify-send -i /tmp/thumb.png -t 3000 "$t"
