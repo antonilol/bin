@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Find all Cargo.toml files and run cargo clean in their directories
+find . -name Cargo.toml | while read -r manifest; do
+    project_dir=$(dirname "$manifest")
+    echo "Cleaning project in: $project_dir"
+    (
+        cd "$project_dir"
+        cargo clean
+    )
+done
